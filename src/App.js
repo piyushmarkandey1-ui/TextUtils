@@ -3,7 +3,13 @@ import './App.css';
 import Navbar from './component/navbar';
 import TextForm from './component/TextForm';
 import Alert from './component/Alert';
-/**import About from './component/About';**/
+import About from './component/About';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState('dark');
@@ -46,15 +52,24 @@ function App() {
       setMode('dark');
       document.body.style.backgroundColor = '#042743';
       showalert("Dark mode has been enabled","success")
+      document.title = "Textutils - Dark Mode";
+      setInterval(() => {
+        document.title = "Textutils is amazing";
+      }, 2000);
+      setInterval(() => {
+        document.title = "Install Textutils now";
+      }, 1500);
     } else {
       setMode('light');
       document.body.style.backgroundColor = 'white';
       showalert("Light mode has been enabled","success")
+      document.title = "Textutils - Light Mode";
     }
   };
 
   return (
     <>
+    <Router>
       <Navbar
   title="Textutils"
   mode={mode}
@@ -62,10 +77,19 @@ function App() {
   toggleMode={toggleMode}
 />
       <Alert alert={alert} mode={mode} />
+       <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+         
+          <Route path="/">
+            <TextForm showalert={showalert} heading="Enter the text to analyze" mode={mode} />
+          </Route>
+        </Switch>
       <div className="container">
-        <TextForm showalert={showalert} heading="Enter the text to analyze" mode={mode} />
+       
       </div>
-      {/* <About /> */}
+     </Router>
     </>
   );
 }
