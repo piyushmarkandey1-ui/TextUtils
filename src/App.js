@@ -79,7 +79,7 @@ function App() {
       <Alert alert={alert} mode={mode} />
        <div className="con">
        <Routes>
-  <Route exact path="/about" element={<About />} />
+  <Route exact path="/about" element={<About mode={mode} />} />
 
   <Route
     exact path="/"

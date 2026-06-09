@@ -72,13 +72,13 @@
               ></textarea>
             </div>
 
-            <button type="button" className="btn btn-primary mx-2" onClick={handleUpcase}>
+            <button type="button" className="btn btn-primary mx-2 " onClick={handleUpcase}>
               Convert to Uppercase
             </button>
-            <button type="button" className="btn btn-primary mx-2" onClick={handleLowcase}>
+            <button type="button" className="btn btn-primary mx-2 " onClick={handleLowcase}>
               Convert to Lowercase
             </button>
-            <button type="button" className="btn btn-primary mx-2" onClick={handleReverse}>
+            <button type="button" className="btn btn-primary mx-2 " onClick={handleReverse}>
               Reverse Text
             </button>
           </form>
@@ -94,4 +94,4 @@
         </div>
       </>
     )
-  }
+  } 
