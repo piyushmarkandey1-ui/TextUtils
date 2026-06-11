@@ -1,60 +1,146 @@
+import React from 'react';
 
-import React, {useState} from 'react'
+const items = [
+  {
+    id: 'collapseOne',
+    icon: '🔍',
+    title: 'Analyse Your Text',
+    body: 'TextUtils gives you a fast and efficient way to analyse your text. Get instant word count, character count, reading time estimates, and more — all in one place.',
+  },
+  {
+    id: 'collapseTwo',
+    icon: '🆓',
+    title: 'Free to Use',
+    body: 'TextUtils is a completely free character counter and word counter tool. It provides instant statistics for any given text and is suitable for content with word or character limits.',
+  },
+  {
+    id: 'collapseThree',
+    icon: '🌐',
+    title: 'Browser Compatible',
+    body: 'Works in any modern web browser — Chrome, Firefox, Safari, Edge, Opera, and more. Perfect for counting characters in documents, social posts, essays, and spreadsheets.',
+  },
+  {
+    id: 'collapseFour',
+    icon: '⚡',
+    title: 'Instant Processing',
+    body: 'All text processing happens right in your browser — no server round trips, no waiting. Your data stays private and results appear instantly as you type.',
+  },
+];
 
 export default function About(props) {
-    /**let [myStyle, setMyStyle] = useState({
-        color: "Black",
-        backgroundColor: "White"
-    })**/
-    
-    let myStyle={
-      color: props.mode === "dark" ? "white" : "#042743",
-      backgroundColor: props.mode === "dark" ? "#042743" : "white",
-      borderColor: props.mode === "dark" ? "#3a6d8c" : "#dee2e6"
-    }
-  
-  return (
-    <div className="container" style={myStyle}>
-        <h1 className="my-3">About Us</h1>
-      <div className="accordion" id="accordionExample">
-  <div className="accordion-item " style={myStyle}>
-    <h2 className="accordion-header">
-      <button className="accordion-button" style={myStyle} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Analyse Your text
-      </button>
-    </h2>
-    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-      <div className="accordion-body" style={myStyle}>
-       Textutils gives you a way to analyze your text quickly and efficiently. Be it word count, character count or
-      </div>
-    </div>
-  </div>
-  <div className="accordion-item " style={myStyle}>
-    <h2 className="accordion-header">
-      <button className="accordion-button collapsed" style={myStyle} type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Free to use
-      </button>
-    </h2>
-    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div className="accordion-body" style={myStyle}>
-        TextUtils is a free character counter tool that provides instant character count & word count statistics for a given text. TextUtils reports the number of words and characters. Thus it is suitable for writing text with word/ character limit.
-      </div>
-    </div>
-  </div>
-  <div className="accordion-item " style={myStyle}>
-    <h2 className="accordion-header">
-      <button className="accordion-button collapsed" style={myStyle} type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-       Browser Compatible 
-      </button>
-    </h2>
-    <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div className="accordion-body" style={myStyle}>
-       This word counter software works in any web browsers such as Chrome, Firefox, Internet Explorer, Safari, Opera. It suits to count characters in facebook, blog, books, excel document, pdf document, essays, etc. 
-      </div>
-    </div>
-  </div>
-</div> 
+  const t = props.themes[props.mode];
 
+  const pageStyle = {
+    transition: 'all 0.4s ease',
+  };
+
+  const headingStyle = {
+    color: t.text,
+    fontWeight: '800',
+    fontSize: '2rem',
+    marginBottom: '6px',
+  };
+
+  const subheadingStyle = {
+    color: t.subtext,
+    fontSize: '1rem',
+    marginBottom: '32px',
+  };
+
+  const cardStyle = {
+    backgroundColor: t.surface,
+    border: `1px solid ${t.border}`,
+    borderRadius: '14px',
+    marginBottom: '14px',
+    overflow: 'hidden',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.15)',
+    transition: 'all 0.3s ease',
+  };
+
+  const btnStyle = {
+    backgroundColor: t.surface,
+    color: t.text,
+    border: 'none',
+    width: '100%',
+    textAlign: 'left',
+    padding: '18px 20px',
+    fontSize: '1rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    transition: 'background 0.2s ease',
+  };
+
+  const bodyStyle = {
+    backgroundColor: t.bg,
+    color: t.subtext,
+    padding: '16px 20px',
+    fontSize: '0.95rem',
+    lineHeight: '1.7',
+    borderTop: `1px solid ${t.border}`,
+  };
+
+  const accentLine = {
+    display: 'inline-block',
+    width: '48px',
+    height: '4px',
+    backgroundColor: t.accent,
+    borderRadius: '4px',
+    marginBottom: '24px',
+  };
+
+  return (
+    <div className="container my-5" style={pageStyle}>
+      <div style={headingStyle}>About TextUtils</div>
+      <div style={accentLine}></div>
+      <p style={subheadingStyle}>A simple, fast, and free text analysis tool built with React.</p>
+
+      <div className="accordion" id="aboutAccordion">
+        {items.map((item, index) => (
+          <div key={item.id} style={cardStyle}>
+            <h2 className="accordion-header">
+              <button
+                style={btnStyle}
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#${item.id}`}
+                aria-expanded={index === 0 ? 'true' : 'false'}
+                aria-controls={item.id}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = t.bg}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = t.surface}
+              >
+                <span style={{ fontSize: '1.3rem' }}>{item.icon}</span>
+                <span>{item.title}</span>
+                <span style={{ marginLeft: 'auto', color: t.accent, fontSize: '0.9rem' }}>▾</span>
+              </button>
+            </h2>
+            <div
+              id={item.id}
+              className={`accordion-collapse collapse${index === 0 ? ' show' : ''}`}
+              data-bs-parent="#aboutAccordion"
+            >
+              <div style={bodyStyle}>{item.body}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer badge */}
+      <div className="text-center mt-5">
+        <span style={{
+          display: 'inline-block',
+          backgroundColor: t.surface,
+          color: t.subtext,
+          border: `1px solid ${t.border}`,
+          borderRadius: '50px',
+          padding: '8px 24px',
+          fontSize: '0.85rem',
+        }}>
+          Built with ❤️ using React & Bootstrap
+        </span>
+      </div>
     </div>
-  )
+  );
 }
