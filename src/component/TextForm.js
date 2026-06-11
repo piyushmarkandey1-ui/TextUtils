@@ -37,7 +37,7 @@ export default function TextForm(props) {
     backgroundColor: t.surface,
     color: t.text,
     borderRadius: '16px',
-    padding: '28px',
+    padding: 'clamp(16px, 4vw, 28px)',
     border: `1px solid ${t.border}`,
     boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
     transition: 'all 0.4s ease',
@@ -83,7 +83,7 @@ export default function TextForm(props) {
     backgroundColor: t.surface,
     color: t.text,
     borderRadius: '12px',
-    padding: '20px 24px',
+    padding: 'clamp(14px, 4vw, 24px)',
     border: `1px solid ${t.border}`,
     boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
     transition: 'all 0.4s ease',
@@ -120,12 +120,12 @@ export default function TextForm(props) {
           />
         </div>
 
-        <div className="d-flex flex-wrap gap-2 mt-3">
-          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleUpcase}>⬆ Uppercase</button>
-          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleLowcase}>⬇ Lowercase</button>
-          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleReverse}>🔄 Reverse</button>
-          <button style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleCopy}>📋 Copy</button>
-          <button style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleClear}>🗑 Clear</button>
+        <div className="d-grid d-sm-flex flex-wrap gap-2 mt-3">
+          <button className="btn-mobile" style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleUpcase}>⬆ Uppercase</button>
+          <button className="btn-mobile" style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleLowcase}>⬇ Lowercase</button>
+          <button className="btn-mobile" style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleReverse}>🔄 Reverse</button>
+          <button className="btn-mobile" style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleCopy}>📋 Copy</button>
+          <button className="btn-mobile" style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleClear}>🗑 Clear</button>
         </div>
       </div>
 

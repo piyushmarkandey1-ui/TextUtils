@@ -37,13 +37,13 @@ export default function About(props) {
   const headingStyle = {
     color: t.text,
     fontWeight: '800',
-    fontSize: '2rem',
+    fontSize: 'clamp(1.4rem, 5vw, 2rem)',
     marginBottom: '6px',
   };
 
   const subheadingStyle = {
     color: t.subtext,
-    fontSize: '1rem',
+    fontSize: 'clamp(0.88rem, 3vw, 1rem)',
     marginBottom: '32px',
   };
 
@@ -63,8 +63,8 @@ export default function About(props) {
     border: 'none',
     width: '100%',
     textAlign: 'left',
-    padding: '18px 20px',
-    fontSize: '1rem',
+    padding: 'clamp(12px, 3vw, 18px) 20px',
+    fontSize: 'clamp(0.9rem, 3vw, 1rem)',
     fontWeight: '600',
     cursor: 'pointer',
     display: 'flex',

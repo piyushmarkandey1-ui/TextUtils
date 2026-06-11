@@ -54,3 +54,50 @@ button:hover {
 .accordion-collapse {
   transition: all 0.3s ease;
 }
+
+/* ── Mobile optimizations ── */
+
+/* Buttons stack full-width on phones, inline from sm up */
+.btn-mobile {
+  width: 100%;
+}
+@media (min-width: 576px) {
+  .btn-mobile {
+    width: auto;
+  }
+}
+
+/* Tighter container horizontal padding on phones */
+@media (max-width: 575px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Reduce textarea height on small screens */
+  #myTextArea {
+    rows: 5;
+    min-height: 120px;
+  }
+
+  /* Stat badges slightly smaller */
+  .stat-badge {
+    font-size: 1rem;
+  }
+
+  /* Tighter vertical spacing */
+  .my-4 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .my-5 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Prevent horizontal scroll on any screen */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}

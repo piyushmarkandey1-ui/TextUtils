@@ -28,7 +28,7 @@ export default function Navbar(props) {
 
   return (
     <nav style={navStyle} className="navbar navbar-expand-lg">
-      <div className="container-fluid px-4">
+      <div className="container-fluid px-3">
         <Link style={brandStyle} to="/">{props.title}</Link>
 
         <button
@@ -54,8 +54,8 @@ export default function Navbar(props) {
             </li>
           </ul>
 
-          {/* Theme Switcher */}
-          <div className="d-flex align-items-center flex-wrap gap-2">
+          {/* Theme Switcher — inside collapse so it's accessible on mobile */}
+          <div className="d-flex align-items-center flex-wrap gap-2 py-2 py-lg-0">
             <span style={{ color: t.subtext, fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.5px' }}>
               THEME
             </span>
@@ -65,9 +65,7 @@ export default function Navbar(props) {
                 onClick={() => props.changeTheme(key)}
                 title={theme.label}
                 style={{
-                  background: props.mode === key
-                    ? theme.accent
-                    : 'transparent',
+                  background: props.mode === key ? theme.accent : 'transparent',
                   color: props.mode === key ? '#fff' : t.subtext,
                   border: `1.5px solid ${props.mode === key ? theme.accent : t.border}`,
                   borderRadius: '20px',
