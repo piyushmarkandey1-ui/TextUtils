@@ -93,7 +93,7 @@ export default function About(props) {
 
   return (
     <div className="container my-5" style={pageStyle}>
-      <div style={headingStyle}>About TextUtils</div>
+      <h1 style={headingStyle}>About TextUtils</h1>
       <div style={accentLine}></div>
       <p style={subheadingStyle}>A simple, fast, and free text analysis tool built with React.</p>
 

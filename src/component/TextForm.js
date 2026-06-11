@@ -63,17 +63,20 @@ export default function TextForm(props) {
     marginBottom: '8px',
   };
 
-  const btnStyle = (primary = true) => ({
-    backgroundColor: primary ? t.accent : 'transparent',
-    color: primary ? '#fff' : t.subtext,
-    border: `1.5px solid ${primary ? t.accent : t.border}`,
+  const isEmpty = text.trim().length === 0;
+
+  const btnStyle = (primary = true, disabled = false) => ({
+    backgroundColor: disabled ? 'transparent' : primary ? t.accent : 'transparent',
+    color: disabled ? t.border : primary ? '#fff' : t.subtext,
+    border: `1.5px solid ${disabled ? t.border : primary ? t.accent : t.border}`,
     borderRadius: '8px',
     padding: '8px 18px',
     fontWeight: '600',
     fontSize: '0.85rem',
-    cursor: 'pointer',
+    cursor: disabled ? 'not-allowed' : 'pointer',
     transition: 'all 0.25s ease',
-    boxShadow: primary ? `0 2px 10px ${t.accent}44` : 'none',
+    boxShadow: (!disabled && primary) ? `0 2px 10px ${t.accent}44` : 'none',
+    opacity: disabled ? 0.45 : 1,
   });
 
   const statCardStyle = {
@@ -102,9 +105,10 @@ export default function TextForm(props) {
     <>
       <div className="container my-4" style={containerStyle}>
         <div className="mb-3">
-          <label htmlFor="myTextArea" style={labelStyle}>
+          <h1 style={{ ...labelStyle, fontSize: '1rem', marginBottom: '8px' }}>
             ✏️ {props.heading}
-          </label>
+          </h1>
+          <label htmlFor="myTextArea" className="visually-hidden">Enter your text</label>
           <textarea
             style={textareaStyle}
             className="form-control"
@@ -117,16 +121,16 @@ export default function TextForm(props) {
         </div>
 
         <div className="d-flex flex-wrap gap-2 mt-3">
-          <button style={btnStyle(true)} onClick={handleUpcase}>⬆ Uppercase</button>
-          <button style={btnStyle(true)} onClick={handleLowcase}>⬇ Lowercase</button>
-          <button style={btnStyle(true)} onClick={handleReverse}>🔄 Reverse</button>
-          <button style={btnStyle(false)} onClick={handleCopy}>📋 Copy</button>
-          <button style={btnStyle(false)} onClick={handleClear}>🗑 Clear</button>
+          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleUpcase}>⬆ Uppercase</button>
+          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleLowcase}>⬇ Lowercase</button>
+          <button style={btnStyle(true, isEmpty)} disabled={isEmpty} onClick={handleReverse}>🔄 Reverse</button>
+          <button style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleCopy}>📋 Copy</button>
+          <button style={btnStyle(false, isEmpty)} disabled={isEmpty} onClick={handleClear}>🗑 Clear</button>
         </div>
       </div>
 
       <div className="container mb-4" style={statCardStyle}>
-        <h5 style={{ color: t.accent, fontWeight: '700', marginBottom: '16px' }}>📊 Text Summary</h5>
+        <h2 style={{ color: t.accent, fontWeight: '700', marginBottom: '16px', fontSize: '1.1rem' }}>📊 Text Summary</h2>
         <div className="d-flex flex-wrap gap-3 mb-3">
           <div>
             <span style={statBadge}>{wordCount}</span>
@@ -142,7 +146,7 @@ export default function TextForm(props) {
           </div>
         </div>
 
-        <h6 style={{ color: t.subtext, fontWeight: '600', marginBottom: '8px' }}>👁 Preview</h6>
+        <h3 style={{ color: t.subtext, fontWeight: '600', marginBottom: '8px', fontSize: '1rem' }}>👁 Preview</h3>
         <p style={{ color: t.text, lineHeight: '1.7', fontStyle: text.length === 0 ? 'italic' : 'normal', opacity: text.length === 0 ? 0.5 : 1 }}>
           {text.length > 0 ? text : 'Nothing to preview yet...'}
         </p>
