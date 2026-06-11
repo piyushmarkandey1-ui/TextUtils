@@ -27,6 +27,7 @@ export default function Navbar(props) {
   };
 
   return (
+    <>
     <nav style={navStyle} className="navbar navbar-expand-lg">
       <div className="container-fluid px-3">
         <Link style={brandStyle} to="/">{props.title}</Link>
@@ -39,9 +40,24 @@ export default function Navbar(props) {
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
-          style={{ borderColor: t.border }}
+          style={{
+            borderColor: t.border,
+            padding: '6px 10px',
+          }}
         >
-          <span className="navbar-toggler-icon"></span>
+          {/* Custom hamburger — always visible regardless of theme */}
+          <span style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            {[0,1,2].map(i => (
+              <span key={i} style={{
+                display: 'block',
+                width: '22px',
+                height: '2px',
+                borderRadius: '2px',
+                backgroundColor: t.accent,
+                transition: 'background-color 0.3s ease',
+              }} />
+            ))}
+          </span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -54,8 +70,8 @@ export default function Navbar(props) {
             </li>
           </ul>
 
-          {/* Theme Switcher — inside collapse so it's accessible on mobile */}
-          <div className="d-flex align-items-center flex-wrap gap-2 py-2 py-lg-0">
+          {/* ── Desktop theme pills (hidden on mobile) ── */}
+          <div className="d-none d-lg-flex align-items-center gap-2">
             <span style={{ color: t.subtext, fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.5px' }}>
               THEME
             </span>
@@ -85,6 +101,85 @@ export default function Navbar(props) {
         </div>
       </div>
     </nav>
+
+    {/* ── Mobile-only persistent theme bar (fixed at bottom) ── */}
+    <div className="d-lg-none mobile-theme-bar" style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1050,
+      background: t.navBg,
+      borderTop: `1px solid ${t.border}`,
+      boxShadow: '0 -4px 20px rgba(0,0,0,0.4)',
+      padding: '8px 12px 10px',
+    }}>
+      <p style={{
+        color: t.subtext,
+        fontSize: '0.65rem',
+        fontWeight: '700',
+        letterSpacing: '1.2px',
+        textTransform: 'uppercase',
+        margin: '0 0 7px 2px',
+      }}>Theme</p>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${Object.keys(props.themes).length}, 1fr)`,
+        gap: '6px',
+      }}>
+        {Object.entries(props.themes).map(([key, theme]) => {
+          const isActive = props.mode === key;
+          return (
+            <button
+              key={key}
+              onClick={() => props.changeTheme(key)}
+              title={theme.label}
+              style={{
+                background: isActive
+                  ? `linear-gradient(135deg, ${theme.accent}44, ${theme.accent}22)`
+                  : theme.surface,
+                border: `2px solid ${isActive ? theme.accent : t.border}`,
+                borderRadius: '10px',
+                padding: '6px 4px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '4px',
+                boxShadow: isActive ? `0 0 10px ${theme.accent}55` : 'none',
+              }}
+            >
+              {/* Colored dot */}
+              <span style={{
+                width: '18px',
+                height: '18px',
+                borderRadius: '50%',
+                background: theme.accent,
+                display: 'block',
+                boxShadow: `0 0 6px ${theme.accent}99`,
+                outline: isActive ? `2px solid ${theme.accent}` : '2px solid transparent',
+                outlineOffset: '2px',
+              }} />
+              {/* Short label */}
+              <span style={{
+                fontSize: '0.6rem',
+                fontWeight: '700',
+                color: isActive ? theme.accent : t.subtext,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '100%',
+              }}>
+                {/* Strip emoji, keep just the word */}
+                {theme.label.replace(/^\S+\s/, '')}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+    </>
   );
 }
 

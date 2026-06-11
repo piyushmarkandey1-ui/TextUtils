@@ -101,3 +101,24 @@ html, body {
   overflow-x: hidden;
   max-width: 100%;
 }
+
+/* ── Mobile theme grid ── */
+@media (max-width: 991px) {
+  /* Divider between nav links and theme grid */
+  .d-lg-none.mt-3 {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+  }
+
+  /* Tap target size for theme cards */
+  .d-lg-none button {
+    min-height: 64px;
+  }
+}
+
+/* ── Space for fixed mobile theme bar ── */
+@media (max-width: 991px) {
+  .con {
+    padding-bottom: 90px;
+  }
+}
